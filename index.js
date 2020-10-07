@@ -10,10 +10,16 @@ const axios = require('axios').default;
 // })();
 
 const date = '2020-10-18';
-// Tapiola
-(async () => {
+
+const scrapeTapiola = async () => {
   const response = await axios.get(`https://vj.slsystems.fi/tennispuisto/ftpages/ft-varaus-table-01.php?laji=1&pvm=${date}&goto=0`);
   const freeSlotElements = response.data.match(/Te\d+<br>\d+:\d+/g);
   const freeSlots = freeSlotElements.map(el => el.split('<br>'));
   console.log(freeSlots)
-})();
+}
+
+const tenMinutes = 1000 * 60 * 10;
+scrapeTapiola();
+setInterval(scrapeTapiola, tenMinutes);
+
+// use https://github.com/mikaelbr/node-notifier#readme for notification
