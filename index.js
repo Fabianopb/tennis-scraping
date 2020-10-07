@@ -1,5 +1,6 @@
 const axios = require('axios').default;
 const notifier = require('node-notifier');
+const open = require('open');
 
 const date = '2020-10-25';
 
@@ -18,17 +19,17 @@ const scrapeTapiola = async () => {
     notifier.notify({
       title: 'Courts available!',
       message: 'There are courts available on 2020-10-25',
-      open: 'https://vj.slsystems.fi/tennispuisto',
+      open: `https://vj.slsystems.fi/tennispuisto/ftpages/ft-varaus-table-01.php?laji=1&pvm=${date}&goto=0`,
       timeout: 5,
     });
 
     notifier.on('timeout', function (notifierObject, options) {
       console.log(options);
-      // install open to open the browser
-      // yarn add open
-      // const open = require('open');
-      // open(options.open);
+      open(options.open);
     });
+
+    console.log('Found available courts! Closing process...');
+    process.exit(0);
   }
   
   console.log(`\n::: Slots in Tapiola on ${Date()}`);
@@ -37,4 +38,4 @@ const scrapeTapiola = async () => {
 
 const tenMinutes = 1000 * 60 * 10;
 scrapeTapiola();
-// setInterval(scrapeTapiola, tenMinutes);
+setInterval(scrapeTapiola, tenMinutes);
