@@ -2,7 +2,7 @@ const axios = require('axios').default;
 const notifier = require('node-notifier');
 const open = require('open');
 
-const date = '2020-10-25';
+const date = '2020-10-11';
 
 const nine = '09:00';
 const ten = '10:00';
@@ -15,7 +15,7 @@ const scrapeTapiola = async () => {
   const nineSlots = freeSlots.filter(slot => slot[1] === nine).length;
   const tenSlots = freeSlots.filter(slot => slot[1] === ten).length;
 
-  if (nineSlots >= 2 && tenSlots >= 2) {
+  if (tenSlots >= 1) {
     notifier.notify({
       title: 'Courts available!',
       message: 'There are courts available on 2020-10-25',
@@ -32,7 +32,8 @@ const scrapeTapiola = async () => {
     process.exit(0);
   }
   
-  console.log(`\n::: Slots in Tapiola on ${Date()}`);
+  const now = new Date();
+  console.log(`\n::: Slots for ${date} in Tapiola on ${now.toISOString()}`);
   console.log(freeSlots, '\n')
 }
 
