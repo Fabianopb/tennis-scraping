@@ -11,6 +11,7 @@ const desiredSlots: DesiredSlot[] = [
 ];
 
 const executeMainProcess = async () => {
+  console.log(`\n* Searching desired slots on ${moment().format('L LT')}...`)
   await Promise.all(desiredSlots.map(desiredSlot => {
     switch (desiredSlot.court) {
       case 'tapiola':
