@@ -1,33 +1,27 @@
-import open from 'open';
 import moment from 'moment';
-import skipTimes from '../skip';
-import { shouldNotifyFreeSlotsInTapiola } from './tapiola';
+import { scrapeTapiola } from './tapiola';
+import { DesiredSlot } from './types';
 
 moment.locale('fi');
 
-const searchDayFormat = 'YYYY-MM-DD';
+const ONE_MINUTE = 1000 * 60;
 
-const scrapeTapiola = async () => {
-  console.log(`\n* Searching slots at ${moment().format('L LT')}`);
-  const startMoment = moment().weekday(6); // first sunday
-  const endMoment = moment().add(31, 'days'); // last day allowed to search
+const desiredSlots: DesiredSlot[] = [
+  { court: 'tapiola', day: '2020-12-06', times: ['10:00'] },
+];
 
-  const searchMoment = moment(startMoment);
-
-  while (searchMoment.isBefore(endMoment)) {
-    const date = searchMoment.format(searchDayFormat);
-
-    const notifyTapiola = await shouldNotifyFreeSlotsInTapiola(date, skipTimes);
-
-    if (notifyTapiola) {
-      await open(`https://vj.slsystems.fi/tennispuisto/ftpages/ft-varaus-table-01.php?laji=1&pvm=${date}&goto=0`);
-      process.exit(0);
+const executeMainProcess = async () => {
+  await Promise.all(desiredSlots.map(desiredSlot => {
+    switch (desiredSlot.court) {
+      case 'tapiola':
+        return scrapeTapiola(desiredSlot);
+      default:
+        throw new Error(`No process defined for court "${desiredSlot.court}"`);
     }
-    searchMoment.add(1, 'week');
-  }
+  }));
 }
 
-const oneMinute = 1000 * 60;
-
-scrapeTapiola();
-setInterval(scrapeTapiola, oneMinute * 5);
+(async () => {
+  await executeMainProcess();
+  setInterval(async () => await executeMainProcess(), ONE_MINUTE * 5);
+})();
