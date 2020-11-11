@@ -18,6 +18,6 @@ export const scrapeTapiola = async (desiredSlot: DesiredSlot) => {
     await open(url);
     process.exit(0);
   } else {
-    console.log(`no free slots for ${desiredSlot.day}`);
+    console.log(`no desired slots in ${desiredSlot.court} for ${desiredSlot.day}`);
   }
 }
