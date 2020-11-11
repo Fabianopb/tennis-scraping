@@ -5,7 +5,6 @@ import { shouldNotifyFreeSlotsInTapiola } from './tapiola';
 
 moment.locale('fi');
 
-let notified = false;
 
 const searchDayFormat = 'YYYY-MM-DD';
 
@@ -16,7 +15,7 @@ const scrapeTapiola = async () => {
 
   const searchMoment = moment(startMoment);
 
-  while (!notified && searchMoment.isBefore(endMoment)) {
+  while (searchMoment.isBefore(endMoment)) {
     const date = searchMoment.format(searchDayFormat);
 
     const notifyTapiola = await shouldNotifyFreeSlotsInTapiola(date, skipTimes);
