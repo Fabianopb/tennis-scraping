@@ -5,7 +5,6 @@ import { shouldNotifyFreeSlotsInTapiola } from './tapiola';
 
 moment.locale('fi');
 
-
 const searchDayFormat = 'YYYY-MM-DD';
 
 const scrapeTapiola = async () => {
