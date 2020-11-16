@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { scrapeTaivis } from './taivis';
 import { scrapeTapiola } from './tapiola';
 import { DesiredSlot } from './types';
 
@@ -8,6 +9,7 @@ const ONE_MINUTE = 1000 * 60;
 
 const desiredSlots: DesiredSlot[] = [
   { court: 'tapiola', day: '2020-12-06', times: ['10:00'] },
+  { court: 'taivis', day:  '2020-11-19', times: ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30'] },
 ];
 
 const executeMainProcess = async () => {
@@ -16,6 +18,8 @@ const executeMainProcess = async () => {
     switch (desiredSlot.court) {
       case 'tapiola':
         return scrapeTapiola(desiredSlot);
+      case 'taivis':
+        return scrapeTaivis(desiredSlot);
       default:
         throw new Error(`No process defined for court "${desiredSlot.court}"`);
     }

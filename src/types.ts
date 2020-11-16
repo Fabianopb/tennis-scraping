@@ -1,5 +1,5 @@
 export type DesiredSlot = {
-  court: 'tapiola' | 'taivallahti';
+  court: 'tapiola' | 'taivis';
   day: string;
   times: string[];
 };
