@@ -4,7 +4,7 @@ import { DesiredSlot } from './types';
 
 export const matchFreeAndDesiredSlots = async (desiredSlot: DesiredSlot, freeTimes: string[], url: string) => {
   if (desiredSlot.times.some(time => freeTimes.includes(time))) {
-    console.log('Found available courts in Taivis! Closing process...');
+    console.log(`Found available courts in ${desiredSlot.court}! Closing process...`);
     console.log(`Slots on ${moment(desiredSlot.day).format('L')}`);
     console.log(freeTimes, '\n');
     await open(url);
