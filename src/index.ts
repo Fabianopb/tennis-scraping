@@ -9,13 +9,11 @@ moment.locale('fi');
 const ONE_MINUTE = 1000 * 60;
 
 const desiredSlots: DesiredSlot[] = [
-  { court: 'tapiola', day: '2020-12-06', times: ['10:00'] },
-  { court: 'taivis', day:  '2020-11-19', times: ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30'] },
-  { court: 'meilahti', day:  '2020-11-19', times: ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30'] },
+  { court: 'taivis', day: '2021-04-30', times: ['18:00'] },
 ];
 
 const executeMainProcess = async () => {
-  console.log(`\n* Searching desired slots on ${moment().format('L LT')}...`)
+  console.log(`\n* (${moment().format('L LT')}): Searching desired slots...`)
   await Promise.all(desiredSlots.map(desiredSlot => {
     switch (desiredSlot.court) {
       case 'tapiola':
