@@ -7,7 +7,7 @@ moment.locale('fi');
 const ONE_MINUTE = 1000 * 60;
 
 const desiredSlots: DesiredSlot[] = [
-  { system: 'playfi', court: 'varisto', day: '2022-02-15', times: ['08:30'] },
+  { system: 'playfi', court: 'varisto', day: '2022-03-26', times: ['15:30', '16:00', '16:30', '17:00'] },
 ];
 
 const executeMainProcess = async () => {
